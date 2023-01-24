@@ -23,7 +23,9 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge: 1200000 }
+  name: 'g2g-session-cookie',
+  cookie: { maxAge: 1200000 },
+  sameSite: 'none'
 }));
 
 const port = process.env.PORT || 3000;

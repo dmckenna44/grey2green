@@ -29,7 +29,6 @@ const Home = () => {
           password: password
         })
       }).then(res => {
-        // console.log('response from login', res.json());
         return res.json();
       }).then(data => {
         console.log('data from login', data)
