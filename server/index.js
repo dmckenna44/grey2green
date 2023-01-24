@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 const http = require('http');
 const session = require('express-session');
@@ -19,6 +20,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(cookieParser(process.env.COOKIE_SECRET));
 // app.set('trust proxy');
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -52,7 +54,7 @@ mongoose.connect(MONGO_URI, {
   })
   .catch(err => console.log(err))
 
-app.get('/api/test', (req, res) => {
+app.get('/api/test', userController.createJWT, (req, res) => {
   const testResponse = {
     test: 'Succesful test',
     port: port,
@@ -61,13 +63,13 @@ app.get('/api/test', (req, res) => {
     listening: listening
   }
   // res.status(200).json(testResponse);
-  res.status(200).cookie('token', token, { httpOnly: true, domain: 'https://grey2green-api.vercel.app/' }).json(testResponse);
+  res.status(200).json(testResponse);
 })
 
 ///////////////////////////////////////////////////////////////////////////
 // ---------------------- User Routes --------------------------------- //
 //////////////////////////////////////////////////////////////////////////
-app.post('/api/login', userController.logIn, (req, res) => {
+app.post('/api/login', userController.logIn, userController.createJWT, (req, res) => {
   res.status(200).json(res.locals.user)
 })
 
