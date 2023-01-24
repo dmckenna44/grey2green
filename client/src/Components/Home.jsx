@@ -29,14 +29,13 @@ const Home = () => {
           password: password
         })
       }).then(res => {
-        console.log('response from login', res.json())
-        return res.json()
+        // console.log('response from login', res.json());
+        return res.json();
       }).then(data => {
         console.log('data from login', data)
         if(data) navigate(`users/${data.username}`)
       }).catch(err => {
         setLoginStatus(false);
-        // alert('Couldn\'t find a user with that name and password')
       })
     }
   }
