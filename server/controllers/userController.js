@@ -10,13 +10,16 @@ const userController = {};
 userController.logIn = async (req, res, next) => {
   try {
     const {username, password} = req.body;
-    const foundUser = await User.findOne({username: username});
+    const foundUser = await User.findOne({username: username, password: password});
     if (foundUser) {
       console.log('foundUser', foundUser);
       res.locals.user = foundUser;
-      const session = req.session;
-      session.userId = foundUser._id;
-      console.log('session from login', session);
+      // const session = req.session;
+      // session.userId = foundUser._id;
+      // console.log('session from login', session);
+      res.cookie('testCookie', '1234', {
+        maxAge: 900000, httpOnly: false, secure: true, sameSite: 'none' 
+      })
     }
     return next();
   } catch (err) {

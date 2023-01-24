@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState} from 'react'
 import baseUrl from "../apiRoute";
@@ -10,12 +10,12 @@ const Home = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [badLogin, setLoginStatus] = useState(true);
+  const [goodLogin, setGoodLogin] = useState(true);
 
   const goToSignUp = (e) => {
     e.preventDefault();
     navigate('/signup')
   }
-  let nothing;
 
   const logIn = (e) => {
     e.preventDefault();
@@ -33,7 +33,10 @@ const Home = () => {
         return res.json();
       }).then(data => {
         console.log('data from login', data)
-        if(data) navigate(`users/${data.username}`)
+        if(data) {
+          setGoodLogin(false);
+          navigate(`users/${data.username}`);
+        }
       }).catch(err => {
         setLoginStatus(false);
       })
@@ -61,8 +64,9 @@ const Home = () => {
         <input type="password" required placeholder="Password" onInput={updatePassword}/>
         <button onClick={logIn}>Sign In</button>
       </form>
+      <div className="loader" hidden={goodLogin}></div>
       <h3 id="badlogin-msg" hidden={badLogin}>Couldn't find a user with that name and password. Try again.</h3>
-      <h4>Don't have an account? Sign up <a href="" onClick={goToSignUp}>here</a> </h4>
+      <h4>Don't have an account? Sign up <span id="sign-up-link" onClick={goToSignUp}>here</span> </h4>
     </div>
 
   )
