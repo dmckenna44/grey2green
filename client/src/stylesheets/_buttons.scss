@@ -96,7 +96,12 @@
   }
 }
 
-#sign-in-link {
+#sign-up-link {
   font-weight: bolder;
   text-decoration: underline;
+  cursor: pointer;
+
+  &:hover {
+    color: $backgroundLight;
+  }
 }

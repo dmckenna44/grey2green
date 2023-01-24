@@ -34,8 +34,8 @@ const Home = () => {
         return res.json();
       }).then(data => {
         console.log('data from login', data)
+        setGoodLogin(false);
         if(data) {
-          setGoodLogin(false);
           navigate(`users/${data.username}`);
         }
       }).catch(err => {
@@ -56,7 +56,7 @@ const Home = () => {
 
   return (
     <div id="home-page-container">
-      <h1 className="home-page-title">Grey2Green</h1>
+      <h1 className="home-page-title"><span style={{color: 'grey'}}>Grey</span>2<span style={{color: 'green'}}>Green</span></h1>
       <h3>Get Yourself Interview-Ready!</h3>
       <form id="login-form">
         <label>Username</label>

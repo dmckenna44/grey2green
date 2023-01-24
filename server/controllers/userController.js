@@ -14,12 +14,12 @@ userController.logIn = async (req, res, next) => {
     if (foundUser) {
       console.log('foundUser', foundUser);
       res.locals.user = foundUser;
-      // const session = req.session;
-      // session.userId = foundUser._id;
-      // console.log('session from login', session);
-      res.cookie('testCookie', '1234', {
-        maxAge: 900000, httpOnly: false, secure: true, sameSite: 'none' 
-      })
+      const session = req.session;
+      session.userId = foundUser._id;
+      console.log('session from login', session);
+      // res.cookie('testCookie', '1234', {
+      //   maxAge: 900000, httpOnly: false, secure: true, sameSite: 'none' 
+      // })
     }
     return next();
   } catch (err) {
@@ -80,13 +80,13 @@ userController.verifyJWT = (req, res, next) => {
 
 userController.verifyUser = async (req, res, next) => {
   try {
-    // const session = req.session;
-    // console.log('session from verifyUser', session);
-    // if (session.userId) {
-    //   res.locals.permission = true;
-    // } else {
-    //   res.locals.permission = false;
-    // }
+    const session = req.session;
+    console.log('session from verifyUser', session);
+    if (session.userId) {
+      res.locals.permission = true;
+    } else {
+      res.locals.permission = false;
+    }
     return next();
   } catch(err) {
     return next(err);

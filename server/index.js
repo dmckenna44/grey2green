@@ -21,19 +21,20 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser(process.env.COOKIE_SECRET));
-// app.set('trust proxy');
-// app.use(session({
-//   secret: process.env.SESSION_SECRET,
-//   resave: false,
-//   saveUninitialized: true,
-//   name: 'g2g-session-cookie',
-//   cookie: { 
-//     maxAge: 1000 * 60 * 60 * 24, 
-//     sameSite: 'none', 
-//     httpOnly: false,
-//     // domain: 'https://grey2green.vercel.app/' 
-//   },
-// }));
+app.set('trust proxy', 1);
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  name: 'g2g-session-cookie',
+  cookie: { 
+    maxAge: 1000 * 60 * 60 * 24, 
+    sameSite: 'none', 
+    httpOnly: false,
+    secure: true
+    // domain: 'https://grey2green.vercel.app/' 
+  },
+}));
 
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
