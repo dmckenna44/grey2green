@@ -25,15 +25,26 @@ app.use(session({
   cookie: { maxAge: 1200000 }
 }));
 
+let connected = false;
+
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
   dbName: 'flashcards'
 })
-  .then(() => console.log('Connected to Flashcard DB'))
+  .then(() => {
+    connected = true;
+    console.log('Connected to Flashcard DB');
+  })
   .catch(err => console.log(err))
 
 app.get('/api/test', (req, res) => {
-  res.status(200).json({test: 'Succesful test'});
+  const testResponse = {
+    test: 'Succesful test',
+    port: port,
+    uri: MONGO_URI,
+    connected: connected
+  }
+  res.status(200).json(testResponse);
 })
 
 ///////////////////////////////////////////////////////////////////////////
