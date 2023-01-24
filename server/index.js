@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const cors = require('cors');
 const path = require('path');
+const http = require('http');
 const session = require('express-session');
 
 const userController = require('./controllers/userController');
@@ -12,7 +13,7 @@ const MONGO_URI = process.env.MONGO_URI;
 console.log('mongo uri', MONGO_URI);
 
 const app = express();
-const port = process.env.PORT || 3000;
+
 
 // app.use(express.static(path.resolve(__dirname, '../client/public')));
 app.use(cors());
@@ -25,7 +26,10 @@ app.use(session({
   cookie: { maxAge: 1200000 }
 }));
 
+const port = process.env.PORT || 3000;
+const server = http.createServer(app);
 let connected = false;
+let listening = false;
 
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
@@ -33,6 +37,10 @@ mongoose.connect(MONGO_URI, {
 })
   .then(() => {
     connected = true;
+    server.listen(port, () => {
+      listening = true;
+      console.log('Server listening on port 3000');
+    })
     console.log('Connected to Flashcard DB');
   })
   .catch(err => console.log(err))
@@ -42,7 +50,8 @@ app.get('/api/test', (req, res) => {
     test: 'Succesful test',
     port: port,
     uri: MONGO_URI,
-    connected: connected
+    connected: connected,
+    listening: listening
   }
   res.status(200).json(testResponse);
 })
@@ -103,6 +112,6 @@ app.use((err, req, res, next) => {
   res.status(500).send({ error: err });
 });
 
-app.listen(port, () => {
-  console.log('Server listening on port 3000');
-})
+// app.listen(port, () => {
+//   console.log('Server listening on port 3000');
+// })
