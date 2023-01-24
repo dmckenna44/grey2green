@@ -15,6 +15,7 @@ const Home = () => {
     e.preventDefault();
     navigate('/signup')
   }
+  let nothing;
 
   const logIn = (e) => {
     e.preventDefault();
