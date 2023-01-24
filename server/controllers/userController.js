@@ -80,13 +80,13 @@ userController.verifyJWT = (req, res, next) => {
 
 userController.verifyUser = async (req, res, next) => {
   try {
-    const session = req.session;
-    console.log('session from verifyUser', session);
-    if (session.userId) {
-      res.locals.permission = true;
-    } else {
-      res.locals.permission = false;
-    }
+    // const session = req.session;
+    // console.log('session from verifyUser', session);
+    // if (session.userId) {
+    //   res.locals.permission = true;
+    // } else {
+    //   res.locals.permission = false;
+    // }
     return next();
   } catch(err) {
     return next(err);
