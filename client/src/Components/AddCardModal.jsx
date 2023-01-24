@@ -49,7 +49,7 @@ const AddCardModal = (props) => {
           navigate(`/users/${userId}/topics/${data.details.topic}`, {state: {details: data.details}});
           handleModal(e);
         } else {
-          location.reload();
+          navigate(0);
         }
       }).catch(err => {
         console.log('error adding card', err)
