@@ -1,0 +1,40 @@
+@import 'variables.scss';
+@import 'containers.scss';
+@import 'buttons.scss';
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Lato&family=Source+Code+Pro&display=swap');
+
+body {
+  font-family: 'Lato';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #E3F6FF;
+  margin: 0;
+  padding: 0;
+}
+
+textarea {
+  resize: none;
+  border-radius: 4px;
+  font-family: 'Lato';
+}
+
+#badlogin-msg {
+  font-style: italic;
+  color: red;
+  opacity: 100%;
+  transition: opacity 1s;
+  text-align: center;
+}
+
+.divider {
+  border: solid 1px black;
+  height: 0;
+  width: 70%;
+  margin: 1rem auto 1rem auto;
+}
+
+.home-page-title {
+  font-family: 'Source Code Pro';
+}
