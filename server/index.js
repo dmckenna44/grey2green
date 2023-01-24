@@ -19,12 +19,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.set('trust proxy');
+// app.set('trust proxy');
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  proxy: true,
   name: 'g2g-session-cookie',
   cookie: { 
     maxAge: 1000 * 60 * 60 * 24, 
