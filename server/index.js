@@ -92,6 +92,6 @@ app.use((err, req, res, next) => {
   res.status(500).send({ error: err });
 });
 
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log('Server listening on port 3000');
 })
