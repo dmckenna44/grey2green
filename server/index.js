@@ -19,14 +19,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-// app.set('trust proxy');
+app.set('trust proxy');
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   proxy: true,
   name: 'g2g-session-cookie',
-  cookie: { maxAge: 1200000, sameSite: 'none', httpOnly: false },
+  cookie: { 
+    maxAge: 1000 * 60 * 60 * 24, 
+    sameSite: 'none', 
+    httpOnly: false,
+    domain: 'https://grey2green.vercel.app/' 
+  },
 }));
 
 const port = process.env.PORT || 3000;
