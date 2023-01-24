@@ -61,7 +61,7 @@ app.get('/api/test', (req, res) => {
     listening: listening
   }
   // res.status(200).json(testResponse);
-  res.status(200).cookie('token', token, { httpOnly: true, domain: 'https://vercel.com/dmckenna44/grey2green' }).json(testResponse);
+  res.status(200).cookie('token', token, { httpOnly: true, domain: 'https://grey2green-api.vercel.app/' }).json(testResponse);
 })
 
 ///////////////////////////////////////////////////////////////////////////
