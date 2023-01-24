@@ -31,7 +31,7 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24, 
     sameSite: 'none', 
     httpOnly: false,
-    domain: 'https://grey2green.vercel.app/' 
+    // domain: 'https://grey2green.vercel.app/' 
   },
 }));
 
@@ -69,7 +69,7 @@ app.get('/api/test', userController.createJWT, (req, res) => {
 ///////////////////////////////////////////////////////////////////////////
 // ---------------------- User Routes --------------------------------- //
 //////////////////////////////////////////////////////////////////////////
-app.post('/api/login', userController.logIn, userController.createJWT, (req, res) => {
+app.post('/api/login', userController.logIn, (req, res) => {
   res.status(200).json(res.locals.user)
 })
 
