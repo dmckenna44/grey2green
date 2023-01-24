@@ -29,10 +29,10 @@ const Home = () => {
           password: password
         })
       }).then(res => {
-        console.log(res.json())
+        console.log('response from login', res.json())
         return res.json()
       }).then(data => {
-        console.log(data)
+        console.log('data from login', data)
         if(data) navigate(`users/${data.username}`)
       }).catch(err => {
         setLoginStatus(false);
