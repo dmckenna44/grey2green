@@ -31,8 +31,8 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24, 
     sameSite: 'none', 
     httpOnly: false,
-    secure: true
-    // domain: 'https://grey2green.vercel.app/' 
+    secure: true,
+    domain: 'https://grey2green.vercel.app/' 
   },
 }));
 
