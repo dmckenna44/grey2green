@@ -12,6 +12,7 @@ const DeleteCardModal = (props) => {
     e.preventDefault();
     fetch(`/api/DeleteCard/${cardId}`)
       .then(res => {
+        console.log(res.json())
         handleDelete(e);
         navigate(`/users/${userId}`);
       })
