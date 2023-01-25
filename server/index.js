@@ -14,13 +14,12 @@ const MONGO_URI = process.env.MONGO_URI;
 
 const app = express();
 
-
 // app.use(express.static(path.resolve(__dirname, '../client/public')));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 // app.use(cookieParser(process.env.COOKIE_SECRET));
-// app.set('trust proxy', 1);
+app.set('trust proxy', 1);
 // app.use(session({
 //   secret: process.env.SESSION_SECRET,
 //   resave: false,
@@ -54,7 +53,7 @@ mongoose.connect(MONGO_URI, {
   })
   .catch(err => console.log(err))
 
-app.get('/api/test', userController.createJWT, (req, res) => {
+app.get('/api/test', (req, res) => {
   const testResponse = {
     test: 'Succesful test',
     port: port,
@@ -107,6 +106,10 @@ app.get('/api/getDetails/:id', cardController.getDetails, (req, res) => {
 
 app.get('/api/randomCard', (req, res) => {
   res.status(200).json(res.locals.random)
+})
+
+app.get('/', (req, res) => {
+  res.status(200).json({hello: 'world'});
 })
 
 ///////////////////////////////////////////////////////////////////////////
