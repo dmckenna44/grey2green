@@ -90,11 +90,11 @@ const TopicPage = (props) => {
       <p>How prepared do you feel?</p>
 
       <div className="rating-container">
-        <div className="loader" hidden={!showGreen}></div>
+        <div className="hourglass" hidden={!showGreen}></div>
         <button className="btn-green" hidden={showGreen} onClick={(e) => setPrepLevel(e, setShowGreen, '#03C988')} >I got this shit on lock</button>
-        <div className="loader" hidden={!showOrange}></div>
+        <div className="hourglass" hidden={!showOrange}></div>
         <button className="btn-orange" hidden={showOrange} onClick={(e) => setPrepLevel(e, setShowOrange, '#FAAB78')}>Okay but not good enough</button>
-        <div className="loader" hidden={!showGrey}></div>
+        <div className="hourglass" hidden={!showGrey}></div>
         <button className="btn-grey" hidden={showGrey} onClick={(e) => setPrepLevel(e, setShowGrey, '#EEEEEE')}>Huh? Where am I??</button>
       </div>
     </div>
