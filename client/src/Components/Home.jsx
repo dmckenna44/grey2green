@@ -20,6 +20,7 @@ const Home = () => {
   const logIn = (e) => {
     e.preventDefault();
     if(username && password) {
+      setGoodLogin(false);
       fetch(`${baseUrl}/api/login`, {
         method: 'POST', 
         headers: {
@@ -34,11 +35,11 @@ const Home = () => {
         return res.json();
       }).then(data => {
         console.log('data from login', data)
-        setGoodLogin(false);
         if(data) {
           navigate(`users/${data.username}`);
         }
       }).catch(err => {
+        setGoodLogin(true);
         setLoginStatus(false);
       })
     }
@@ -66,7 +67,7 @@ const Home = () => {
         <button onClick={logIn}>Sign In</button>
       </form>
       <div className="loader" hidden={goodLogin}></div>
-      <h3 id="badlogin-msg" hidden={badLogin}>Couldn't find a user with that name and password. Try again.</h3>
+      <h5 id="badlogin-msg" hidden={badLogin}>Couldn't find a user with that name and password. <br></br>Try again.</h5>
       <h4>Don't have an account? Sign up <span id="sign-up-link" onClick={goToSignUp}>here</span> </h4>
     </div>
 
