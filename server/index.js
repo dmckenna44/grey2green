@@ -104,17 +104,22 @@ app.get('/api/getDetails/:id', cardController.getDetails, (req, res) => {
   res.status(200).json(res.locals.details);
 })
 
+app.get('/api/deleteCard/:id', cardController.deleteCard, (req, res) => {
+  res.status(200).json(res.locals.deleted);
+})
+
 app.get('/api/randomCard', (req, res) => {
   res.status(200).json(res.locals.random)
 })
 
-app.get('/', (req, res) => {
-  res.status(200).json({hello: 'world'});
-})
 
 ///////////////////////////////////////////////////////////////////////////
 // ---------------------- Global Routes --------------------------------- //
 //////////////////////////////////////////////////////////////////////////
+app.get('/', (req, res) => {
+  res.status(200).json({hello: 'world'});
+})
+
 app.get('/*', (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, '../client/public/index.html'));
   return;

@@ -49,6 +49,18 @@ cardController.addOrUpdateCard = async (req, res, next) => {
     }
 }
 
+cardController.deleteCard = async (req, res, next) => {
+  const {id} = req.params;
+
+  try {
+    const deletedCard = await Card.deleteOne({_id: id});
+    res.locals.deleted = deletedCard;
+    return next();
+  } catch(err) {
+    return next(err)
+  }
+}
+
 cardController.updatePrepLevel = async (req, res, next) => {
   const {id, color} = req.body;
     try {
