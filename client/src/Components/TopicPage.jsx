@@ -79,6 +79,7 @@ const TopicPage = (props) => {
       <div className="topic-page-btns">
         <button onClick={flipCard}>{buttonDisplay}</button>
         <button onClick={handleModal}>Edit</button>
+        <button onClick={handleDelete}>Delete</button>
       </div>
       <div className="divider"></div>
         <p>How do you feel about {topic}?</p>
