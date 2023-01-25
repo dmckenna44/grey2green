@@ -48,7 +48,7 @@ const UserProfile = (props) => {
     <div className="user-profile-container">
       <div id="overlay" hidden={modalHidden}></div>
       <a href="/" className="logout-btn" onClick={logOut}>Logout</a>
-      <h1>Let's git it {userId}</h1>
+      <h1>Hello {userId}, </h1>
       <div className="squares">
         <div className="square-container">
           {cardList}

@@ -10,10 +10,12 @@ const SignUp = () => {
   const [password, setPassword] = useState();
   const [badSignup, setBadSignup] = useState(true);
   const [goodSignup, setGoodSignup] = useState(true);
+  const [showLoader, setShowLoader] = useState(true);
 
   const signUp = (e) => {
     e.preventDefault();
     if(username && password) {
+      setShowLoader(false);
       fetch(`${baseUrl}/api/signup`, {
         method: 'POST',
         headers: {
@@ -37,7 +39,8 @@ const SignUp = () => {
 
   return (
     <div id="signup-container">
-      <h1 className="home-page-title">Grey2Green</h1>
+      <a className="back-to-prof-link" href="/" >← Back to Login</a>
+      <h1 className="home-page-title"><span style={{color: 'grey'}}>Grey</span>2<span style={{color: 'green'}}>Green</span></h1>
       <h2>Create a New Account</h2>
       <form id="signup-form">
         <label>Username</label>
@@ -46,9 +49,9 @@ const SignUp = () => {
         <input type="password" required placeholder="Password" onInput={(e) => setPassword(e.target.value)}/>
         <button type="submit" onClick={signUp}>Sign Up</button>
       </form>
+      <div className="loader" hidden={showLoader}></div>
       <div id="signup-modal" hidden={goodSignup} style={{display: goodSignup ? 'none' : 'flex'}}>
         Signed Up! Redirecting to Login Page
-        <div className="loader"></div>
       </div>
       <h3 id="badlogin-msg" hidden={badSignup}>That username already exists! <br></br> Try another one.</h3>
     </div>
