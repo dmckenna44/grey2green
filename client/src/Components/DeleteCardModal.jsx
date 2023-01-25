@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import baseUrl from "../apiRoute";
 
 const DeleteCardModal = (props) => {
 
@@ -10,9 +11,8 @@ const DeleteCardModal = (props) => {
 
   const deleteCard = (e) => {
     e.preventDefault();
-    fetch(`/api/deleteCard/${cardId}`)
+    fetch(`${baseUrl}/api/deleteCard/${cardId}`)
       .then(res => {
-        console.log(res.json())
         handleDelete(e);
         navigate(`/users/${userId}`);
       })
