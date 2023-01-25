@@ -10,7 +10,7 @@ const DeleteCardModal = (props) => {
 
   const deleteCard = (e) => {
     e.preventDefault();
-    fetch(`/api/DeleteCard/${cardId}`)
+    fetch(`/api/deleteCard/${cardId}`)
       .then(res => {
         console.log(res.json())
         handleDelete(e);
