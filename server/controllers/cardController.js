@@ -17,7 +17,6 @@ cardController.getUserCards = async (req, res, next) => {
 
 cardController.addOrUpdateCard = async (req, res, next) => {
   const {username, topic, prompt, response, id} = req.body;
-  if (res.locals.permission) {
     if (id) {
       try {
         const selectedCard = await Card.findOne({_id: id});
@@ -48,12 +47,10 @@ cardController.addOrUpdateCard = async (req, res, next) => {
         return next(err);
       }
     }
-  } else return next();
 }
 
 cardController.updatePrepLevel = async (req, res, next) => {
   const {id, color} = req.body;
-  if (res.locals.permission) {
     try {
       const selectedCard = await Card.findOne({_id: id});
       selectedCard.color = color;
@@ -63,7 +60,6 @@ cardController.updatePrepLevel = async (req, res, next) => {
     } catch (err) {
       return next(err);
     }
-  } else return next();
 }
 
 cardController.getDetails = async (req, res, next) => {

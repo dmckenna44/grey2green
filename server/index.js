@@ -11,7 +11,6 @@ const userController = require('./controllers/userController');
 const cardController = require('./controllers/cardController');
 
 const MONGO_URI = process.env.MONGO_URI;
-console.log('mongo uri', MONGO_URI);
 
 const app = express();
 
@@ -20,21 +19,21 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(cookieParser(process.env.COOKIE_SECRET));
-app.set('trust proxy', 1);
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  name: 'g2g-session-cookie',
-  cookie: { 
-    maxAge: 1000 * 60 * 60 * 24, 
-    sameSite: 'none', 
-    httpOnly: false,
-    secure: true,
-    domain: 'https://grey2green.vercel.app/' 
-  },
-}));
+// app.use(cookieParser(process.env.COOKIE_SECRET));
+// app.set('trust proxy', 1);
+// app.use(session({
+//   secret: process.env.SESSION_SECRET,
+//   resave: false,
+//   saveUninitialized: true,
+//   name: 'g2g-session-cookie',
+//   cookie: { 
+//     maxAge: 1000 * 60 * 60 * 24, 
+//     sameSite: 'none', 
+//     httpOnly: false,
+//     secure: true,
+//     domain: 'https://grey2green.vercel.app/' 
+//   },
+// }));
 
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
@@ -78,19 +77,19 @@ app.post('/api/signup', userController.signUp, (req, res) => {
   res.status(200).json(res.locals.user)
 })
 
-app.get('/api/users/:userId', userController.verifyUser, cardController.getUserCards, (req, res) => {
+app.get('/api/users/:userId', cardController.getUserCards, (req, res) => {
   res.status(200).json(res.locals.userCards);
 })
 
 app.get('/api/logout', (req, res) => {
-    req.session.destroy();
+    // req.session.destroy();
     res.status(200).send('logged out');
 })
 
 ///////////////////////////////////////////////////////////////////////////
 // ---------------------- Card Routes --------------------------------- //
 //////////////////////////////////////////////////////////////////////////
-app.post('/api/addOrUpdateCard', userController.verifyUser, cardController.addOrUpdateCard, (req, res) => {
+app.post('/api/addOrUpdateCard', cardController.addOrUpdateCard, (req, res) => {
   const response = {
     details: res.locals.newCard,
     updated: res.locals.updated
@@ -98,11 +97,11 @@ app.post('/api/addOrUpdateCard', userController.verifyUser, cardController.addOr
   res.status(200).json(response);
 })
 
-app.post('/api/updateCardPrep', userController.verifyUser, cardController.updatePrepLevel, (req, res) => {
+app.post('/api/updateCardPrep', cardController.updatePrepLevel, (req, res) => {
   res.status(200).json(res.locals.updatedCard);
 })
 
-app.get('/api/getDetails/:id', userController.verifyUser, cardController.getDetails, (req, res) => {
+app.get('/api/getDetails/:id', cardController.getDetails, (req, res) => {
   res.status(200).json(res.locals.details);
 })
 
