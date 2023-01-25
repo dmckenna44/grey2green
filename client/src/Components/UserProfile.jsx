@@ -11,7 +11,7 @@ const UserProfile = (props) => {
 
   const {userId} = useParams();
   const [userCards, setUserCards] = useState([]);
-  const [modalHidden, toggleModal] = useState(true)
+  const [modalHidden, toggleModal] = useState(true);
 
   // Retrieve all of the users topic cards from the DB and save them as userCards
   useEffect(() => {
@@ -31,13 +31,14 @@ const UserProfile = (props) => {
         navigate('/');
       })
   }
-  let endSession, sessionExp;
 
   const handleModal = (e) => {
     e.preventDefault();
     console.log('handleModal called')
     toggleModal(!modalHidden);
   }
+
+
 
   // Create list of Square components to render in grid
   const cardList = userCards.map((card, i) => {
@@ -57,7 +58,6 @@ const UserProfile = (props) => {
           </div>
         </div>
       </div>
-        <SessionExpModal hidden={sessionExp} endSession={endSession}/>
         <AddCardModal hidden={modalHidden} handleModal={handleModal}/>
     </div>
   )

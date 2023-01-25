@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import AddCardModal from "./AddCardModal";
+import DeleteCardModal from "./DeleteCardModal";
 import baseUrl from "../apiRoute";
 
 
@@ -14,7 +15,8 @@ const TopicPage = (props) => {
   const {answer, question, topic, _id} = location.state.details;
 
   const [showAnswer, setShowAnswer] = useState(false);
-  const [modalHidden, toggleModal] = useState(true)
+  const [modalHidden, toggleModal] = useState(true);
+  const [deleteHidden, toggleDelete] = useState(true);
 
   let buttonDisplay = showAnswer ? 'Show Question' : 'Show Answer'
 
@@ -44,6 +46,11 @@ const TopicPage = (props) => {
     toggleModal(!modalHidden);
   }
 
+  const handleDelete = (e) => {
+    e.preventDefault();
+    toggleDelete(!deleteHidden);
+  }
+
   const returnToProf = (e) => {
     e.preventDefault();
     navigate(`/users/${userId}`)
@@ -51,7 +58,7 @@ const TopicPage = (props) => {
   
   return (
     <div className="topic-page-container">
-      <a className="back-to-prof-link" onClick={returnToProf} >← Back to Profile</a>
+      <p className="back-to-prof-link" onClick={returnToProf} >← Back to Profile</p>
       <h2>{topic}</h2>
       <div className={`card-container ${showAnswer ? 'flipCard' : ''}`}>
         { 
@@ -66,7 +73,8 @@ const TopicPage = (props) => {
           </div>
         }
       </div>
-      <div id="overlay" hidden={modalHidden}></div>
+      <div id="overlay" hidden={modalHidden && deleteHidden}></div>
+      <DeleteCardModal cardId={_id} hidden={deleteHidden} handleDelete={handleDelete}/>
       <AddCardModal cardId={_id} hidden={modalHidden} handleModal={handleModal}/>
       <div className="topic-page-btns">
         <button onClick={flipCard}>{buttonDisplay}</button>
