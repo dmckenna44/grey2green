@@ -35,8 +35,11 @@ const Home = () => {
         return res.json();
       }).then(data => {
         console.log('data from login', data)
-        if(data) {
+        if(data.username) {
           navigate(`users/${data.username}`);
+        } else {
+          setGoodLogin(true);
+          setLoginStatus(false);
         }
       }).catch(err => {
         setGoodLogin(true);
