@@ -17,6 +17,9 @@ const TopicPage = (props) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [modalHidden, toggleModal] = useState(true);
   const [deleteHidden, toggleDelete] = useState(true);
+  const [showGreen, setShowGreen] = useState(false);
+  const [showOrange, setShowOrange] = useState(false);
+  const [showGrey, setShowGrey] = useState(false);
 
   let buttonDisplay = showAnswer ? 'Show Question' : 'Show Answer'
 
@@ -26,8 +29,9 @@ const TopicPage = (props) => {
     console.log(showAnswer)
   }
 
-  const setPrepLevel = (e, color) => {
+  const setPrepLevel = (e, func, color) => {
     e.preventDefault();
+    func(true);
     fetch(`${baseUrl}/api/updateCardPrep`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -37,7 +41,7 @@ const TopicPage = (props) => {
       })
     }).then(res => res.json())
       .then(data => {
-        alert('Topic Updated! Keep it up!')
+        func(false);
       })
   }
 
@@ -73,6 +77,7 @@ const TopicPage = (props) => {
           </div>
         }
       </div>
+
       <div id="overlay" hidden={modalHidden && deleteHidden}></div>
       <DeleteCardModal cardId={_id} hidden={deleteHidden} handleDelete={handleDelete}/>
       <AddCardModal cardId={_id} hidden={modalHidden} handleModal={handleModal}/>
@@ -82,12 +87,15 @@ const TopicPage = (props) => {
         <button onClick={handleDelete}>Delete</button>
       </div>
       <div className="divider"></div>
-        <p>How do you feel about {topic}?</p>
+      <p>How prepared do you feel?</p>
 
       <div className="rating-container">
-        <button className="btn-green" onClick={(e) => setPrepLevel(e, '#03C988')} >I got this shit on lock</button>
-        <button className="btn-orange" onClick={(e) => setPrepLevel(e, '#FAAB78')}>Okay but not good enough</button>
-        <button className="btn-grey" onClick={(e) => setPrepLevel(e, '#EEEEEE')}>Huh? Where am I??</button>
+        <div className="loader" hidden={!showGreen}></div>
+        <button className="btn-green" hidden={showGreen} onClick={(e) => setPrepLevel(e, setShowGreen, '#03C988')} >I got this shit on lock</button>
+        <div className="loader" hidden={!showOrange}></div>
+        <button className="btn-orange" hidden={showOrange} onClick={(e) => setPrepLevel(e, setShowOrange, '#FAAB78')}>Okay but not good enough</button>
+        <div className="loader" hidden={!showGrey}></div>
+        <button className="btn-grey" hidden={showGrey} onClick={(e) => setPrepLevel(e, setShowGrey, '#EEEEEE')}>Huh? Where am I??</button>
       </div>
     </div>
   )
